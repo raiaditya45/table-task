@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -39,39 +38,33 @@ const OrderManagement: React.FC = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const rowsPerPage = 10;
-
-  // Fetch data from API
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      setProducts(response.data);
+      setFilteredProducts(response.data);
+      setTotalRecords(response.data.length);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
-        setProducts(response.data);
-        setFilteredProducts(response.data);
-        setTotalRecords(response.data.length);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchProducts();
   }, []);
 
-  // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
     filterData(value, userIdFilter);
   };
 
-  // Handle userId filter change
   const handleUserIdFilterChange = (e: { value: number | null }) => {
     setUserIdFilter(e.value);
     filterData(searchTerm, e.value);
   };
 
-  // Filter data based on search and userId filter
   const filterData = (search: string, userId: number | null) => {
     let filtered = products;
 
@@ -89,10 +82,9 @@ const OrderManagement: React.FC = () => {
 
     setFilteredProducts(filtered);
     setTotalRecords(filtered.length);
-    setCurrentPage(0); // Reset to the first page after filtering
+    setCurrentPage(0); 
   };
 
-  // Handle page change
   const onPageChange = (event: DataTablePageEvent) => {
     setCurrentPage(event.first / rowsPerPage);
   };
@@ -114,7 +106,7 @@ const OrderManagement: React.FC = () => {
         <Dropdown
           className="filter-input"
           value={userIdFilter}
-          options={[{ label: "All Users", value: null }, ...userIdOptions]}
+          options={[ ...userIdOptions]}
           onChange={handleUserIdFilterChange}
           placeholder="Filter by User ID"
         />

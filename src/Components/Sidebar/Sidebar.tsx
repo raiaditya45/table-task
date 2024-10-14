@@ -1,8 +1,7 @@
-// Sidebar.tsx
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
-import { FaBars, FaHome, FaBox, FaCog } from "react-icons/fa"; // Example icons
+import { FaBars, FaHome, FaBox, FaCog } from "react-icons/fa"; 
 import logo from '../../assets/react.svg'; 
 
 const SidebarContainer = styled.div<{ collapsed: boolean }>`
