@@ -70,7 +70,7 @@ const Sidebar = () => {
         <Icon><FaHome /></Icon>
         {!collapsed && <span>Dashboard</span>}
       </SidebarLink>
-      <SidebarLink to="/order-managementy" >
+      <SidebarLink to="/order-management" >
         <Icon><FaBox /></Icon>
         {!collapsed && <span>Order Management</span>}
       </SidebarLink>
